@@ -97,7 +97,7 @@ body {
 }
 
 .slides.template-default > article:not(.nobackground):not(.biglogo) {
-  background: url(unitec.png) 710px 625px no-repeat;  
+  background: url(unitec.png) 697px 566px no-repeat;  
   
   background-color: white;  
 } 
