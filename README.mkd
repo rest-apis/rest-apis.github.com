@@ -1,3 +1,25 @@
 Considerar usar esto para las pres: http://code.google.com/p/html5slides/
 
 (O alguno de estos: http://delicious.com/lfborjas/slides )
+
+Horario:
+
+* 28 de noviembre al 06 de diciembre. Los días lunes miercoles y jueves de 6:30-8:30 y sábados de 8:00-12:00 am
+
+Ideas:
+
+* Repaso de HTTP
+* Consumir apis famosas (google, flickr, fb) en parejas (uno en py otro en js). OAuth
+* Hacer un front-end de un API hecha por mí (que tenga CORS para no morir con jsonp)
+* OAuth
+* Crear un API
+
+Sesiones:
+
+1. Repaso de python, linux y http (usar curl) [Lun]
+2. Introducción a rest (ejemplos en python y js) [Mier]
+3. Explorar apis: en python y js, ver convenciones (jsonp, tokens, etc) [Jue]
+4. Micro-proyecto: dar specs de un API (hacerla yo), que la consuman [Sáb]
+
+5. Crear un api en django (seguridad, autenticación, jsonp) [Lun]
+6. Micro-proyecto: crear y consumir un api para un juego sencillo, en parejas
