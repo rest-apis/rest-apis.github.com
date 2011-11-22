@@ -1,0 +1,12 @@
+require 'haml'
+
+desc "Create a presentation (usage: rake build[source.haml])"
+task :build, :src do |__, args| 
+    template = File.read("template.html")
+    source = args[:src]
+    puts args.inspect
+    engine = Haml::Engine.new(File.read(source))
+    File.open(source.gsub('haml', 'html'), 'w') do |f|
+        f.write template.gsub('{{content}}', engine.render)    
+    end
+end
