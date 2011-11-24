@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<!--
+  Google HTML5 slide template
+
+  Authors: Luke Mahé (code)
+           Marcin Wichary (code and design)
+           
+           Dominic Mazzoni (browser compatibility)
+           Charles Chen (ChromeVox support)
+
+  URL: http://code.google.com/p/html5slides/
+-->
+
+<html>
+  <head>
+    <title>Presentation</title>
+
+    <meta charset='utf-8'>
+    <script
+      src='http://rest-apis.github.com/js/slides.js'></script>
+  </head>
+  
+  <style>
+    /* Your individual styles here, or just use inline styles if that’s
+       what you want. */
+    
+    
+  </style>
+
+  <body style='display: none'>
+
+    <section class='slides layout-regular template-default'>
+        
+        <article>
+  <h1>Http y Python</h1>
+</article>
+<article class='small'>
+  <h2>Una rápida introducción a CURL</h2>
+  <pre>$ which curl
+  $ man curl
+  $ curl google.com
+  $ curl -v google.com
+  $ curl -I google.com
+  $ curl -i google.com
+  $ curl -v httpbin.org/get?hello=world
+  $ curl -v --data param1=data1 httpbin.org/post</pre>
+</article>
+<article>
+  <h2>¿Qué es HTTP?</h2>
+  <ul>
+  <li>Basado en el modelo <strong>cliente-servidor</strong></li>
+  
+  <li>Usa el ciclo <strong>solicitud-respuesta</strong></li>
+  
+  <li>Enteramente basado en archivos de texto con poco formato &#8220;especial&#8221;</li>
+  </ul>
+</article>
+<article>
+  <h2 id='todo'>TODO</h2>
+  
+  <ul>
+  <li>imagen con el ciclo</li>
+  
+  <li>solicitudes/respuestas de ejemplo</li>
+  
+  <li>cliente y servidor: qué hacen; cliente CRUD, servidor MVC</li>
+  
+  <li>wsgi</li>
+  </ul>
+</article>
+
+
+    </section>
+
+  </body>
+</html>

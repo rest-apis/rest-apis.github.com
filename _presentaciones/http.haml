@@ -1,0 +1,26 @@
+%article
+  %h1 Http y Python
+%article{:class => 'small'}
+  %h2 Una rápida introducción a CURL
+  %pre
+    $ which curl
+    $ man curl
+    $ curl google.com
+    $ curl -v google.com
+    $ curl -I google.com
+    $ curl -i google.com
+    $ curl -v httpbin.org/get?hello=world
+    $ curl -v --data param1=data1 httpbin.org/post
+%article
+  %h2 ¿Qué es HTTP?
+  :markdown
+    * Basado en el modelo __cliente-servidor__
+    * Usa el ciclo __solicitud-respuesta__
+    * Enteramente basado en archivos de texto con poco formato "especial"
+%article
+  :markdown
+    ##TODO
+    * imagen con el ciclo
+    * solicitudes/respuestas de ejemplo
+    * cliente y servidor: qué hacen; cliente CRUD, servidor MVC
+    * wsgi
