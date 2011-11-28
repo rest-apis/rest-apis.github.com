@@ -33,10 +33,45 @@
     <section class='slides layout-regular template-default'>
         
         <article>
+  <h2>Preliminares</h2>
+  <ul>
+  <li>Luis Felipe Borjas</li>
+  
+  <li>lfborjas@unitec.edu</li>
+  </ul>
+</article>
+<article>
+  <h2>Preliminares</h2>
+  <ol>
+  <li>Comunicación: <a href='http://my.class.io/course/rest-apis/'>http://my.class.io/course/rest-apis/</a></li>
+  
+  <li>Código: <a href='https://github.com/rest-apis'>https://github.com/rest-apis</a></li>
+  
+  <li>Presentaciones y misceláneos: <a href='http://rest-apis.github.com/'>http://rest-apis.github.com/</a></li>
+  </ol>
+</article>
+<article>
   <h1>Http y Python</h1>
 </article>
+<article>
+  <h3>¿Qué es HTTP?</h3>
+  <ul class='build'>
+    <li>Protocolo de transferencia de hipertexto</li>
+    <li>Basado en el modelo <em>cliente-servidor</em></li>
+    <li>Usa el ciclo <em>solicitud-respuesta</em></li>
+  </ul>
+</article>
+<article>
+  <h3>El cliente</h3>
+  <ul class='build'>
+    <li>¿Quiénes pueden ser clientes?</li>
+    <li>Cualquier programa que pueda construir una solicitud y enviarla</li>
+    <li>¿Qué hace un cliente?</li>
+    <li>Crea solicitudes, interpreta respuestas, mantiene el estado</li>
+  </ul>
+</article>
 <article class='small'>
-  <h2>Una rápida introducción a CURL</h2>
+  <h3>Una rápida introducción a CURL</h3>
   <pre>$ which curl
   $ man curl
   $ curl google.com
@@ -47,27 +82,114 @@
   $ curl -v --data param1=data1 httpbin.org/post</pre>
 </article>
 <article>
-  <h2>¿Qué es HTTP?</h2>
+  <h3>Las solicitudes</h3>
+  <pre>GET / HTTP/1.1
+  User-Agent: curl/7.19.7 (i486-pc-linux-gnu)
+  Host: google.com
+  Accept: */*</pre>
+</article>
+<article>
+  <h3>Solicitudes:</h3>
   <ul>
-  <li>Basado en el modelo <strong>cliente-servidor</strong></li>
-  
-  <li>Usa el ciclo <strong>solicitud-respuesta</strong></li>
-  
-  <li>Enteramente basado en archivos de texto con poco formato &#8220;especial&#8221;</li>
+    <li>Qué se quiere</li>
+    <li>Cómo se quiere</li>
   </ul>
 </article>
 <article>
-  <h2 id='todo'>TODO</h2>
-  
+  <h3>Métodos</h3>
   <ul>
-  <li>imagen con el ciclo</li>
+  <li>HEAD</li>
   
-  <li>solicitudes/respuestas de ejemplo</li>
+  <li>GET</li>
   
-  <li>cliente y servidor: qué hacen; cliente CRUD, servidor MVC</li>
+  <li>POST</li>
   
-  <li>wsgi</li>
+  <li>PUT</li>
+  
+  <li>DELETE</li>
+  
+  <li>TRACE, OPTIONS, CONNECT, PATCH</li>
   </ul>
+</article>
+<article class='small'>
+  <h3>URLs</h3>
+  <tt>http://google.com:80/?q=python#results</tt>
+  <ul>
+    <li><tt>http:</tt> es el protocolo</li>
+    <li><tt>google.com</tt>, el dominio (host)</li>
+    <li><tt>80</tt>, el puerto</li>
+    <li><tt>/</tt> ruta (path)</li>
+    <li><tt>?q=python</tt>, querystring</li>
+    <li><tt>#results</tt>, fragmento (hash), <em>sólo visible por el cliente</em></li>
+  </ul>
+</article>
+<article>
+  <h3>Encabezados</h3>
+  <ul>
+    <li>Contenido: pares de llave-valor (key-value) separados por punto y coma (;)</li>
+    <li>Cada encabezado se separa de otro por un salto de línea</li>
+    <li>Ejemplos: 'Accept', 'Cookie', 'Accept-Language'</li>
+  </ul>
+</article>
+<article>
+  <h3>El servidor</h3>
+  <ul>
+    <li>Suele estar escuchando: un daemon</li>
+    <li>Recibe solicitudes, las interpreta, construye respuestas</li>
+    <li>Tan simple como un script, tan complicado como un MVC</li>
+  </ul>
+</article>
+<article>
+  <h3>Las respuests</h3>
+  <pre>HTTP/1.0 200 OK
+  Date: Mon, 11 Apr 2011 17:39:00 GMT
+  Server: WSGIServer/0.1 Python/2.6.5
+  Content-Type: text/plain
+  Content-Length: 12
+  Hola Mundo!</pre>
+</article>
+<article>
+  <h3>Partes de una respuesta</h3>
+  <ul>
+    <li>Línea de estado</li>
+    <li>Encabezados</li>
+    <li>Cuerpo</li>
+  </ul>
+</article>
+<article>
+  <h3>Estados</h3>
+  <ul>
+    <li>1xx y 2xx: todo salió bien</li>
+    <li>3xx: el recurso está en otra parte</li>
+    <li>4xx: error de cliente</li>
+    <li>5xx: error de servidor</li>
+  </ul>
+</article>
+<article class='small'>
+  <h2>El servidor más sencillo en python</h2>
+  <pre><code>def application(environ, response_callback)&#x000A;    text = &#39;Hola Mundo!\n&#39;&#x000A;    response_callback(&#x000A;        &quot;200 OK&quot;,&#x000A;        [(&#39;Content-Type&#39;, &#39;text/plain&#39;),&#x000A;         (&#39;Content-Length&#39;, str(len(text)))]&#x000A;        )&#x000A;    return [text]&#x000A;from wsgiref.simple_server import make_server&#x000A;daemon = make_server(&#39;127.0.0.1&#39;, 8000, application)&#x000A;daemon.handle_request()</code></pre>
+</article>
+<article>
+  <h2>¿Qué es WSGI?</h2>
+  <ul>
+    <li>Una interfaz estándar para servidores en python</li>
+    <li>Le deja al programa servidor (nginx, apache, etc) la responsabilidad de proveer constructores de respuestas</li>
+    <li>Le deja a la lógica de aplicación usar eso y el entorno; y nada más</li>
+  </ul>
+</article>
+<article>
+  <h3>WSGI como abstracción</h3>
+  <p>
+    <img src='http://desarrollo-web.github.com/images/wsgi.png' style='margin:-100px;' />
+  </p>
+</article>
+<article class='small'>
+  <h2>Experimentos con WSGI</h2>
+  <pre><code>def application(environ,&#x000A;        start_response):&#x000A;  text = &quot;&quot;&#x000A;  for k,v in environ.items():&#x000A;      text += &quot;%s: %s\n&quot;%(k,v)&#x000A;  start_response(&#x000A;          &quot;200 OK&quot;,&#x000A;          [(&#39;Content-Type&#39;, &#39;text/plain&#39;),&#x000A;           (&#39;Content-Length&#39;, str(len(text)))]&#x000A;          )&#x000A;  return [text]&#x000A;from wsgiref.simple_server import make_server&#x000A;daemon = make_server(&#39;127.0.0.1&#39;, 8000, application)&#x000A;daemon.handle_request()</code></pre>
+</article>
+<article>
+  <h2>Experimentos con WSGI</h2>
+  <pre><code>from cgi import parse_qs&#x000A;def application(environ, response_callback):&#x000A;    get = parse_qs(environ[&#39;QUERY_STRING&#39;])&#x000A;    text = get[&#39;with&#39;][0] + &#39;\n&#39;&#x000A;    response_callback(&#x000A;        &quot;200 OK&quot;,&#x000A;        [(&#39;Content-Type&#39;, &#39;text/plain&#39;),&#x000A;         (&#39;Content-Length&#39;, str(len(text)))]&#x000A;        )&#x000A;    return [text]&#x000A;from wsgiref.simple_server import make_server&#x000A;daemon = make_server(&#39;127.0.0.1&#39;, 8000, application)&#x000A;daemon.handle_request()</code></pre>
 </article>
 
 

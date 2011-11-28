@@ -1,7 +1,31 @@
 %article
+  %h2 Preliminares
+  :markdown
+    * Luis Felipe Borjas
+    * lfborjas@unitec.edu
+%article
+  %h2 Preliminares
+  :markdown
+    1. Comunicación: <http://my.class.io/course/rest-apis/>
+    2. Código: <https://github.com/rest-apis>
+    3. Presentaciones y misceláneos: <http://rest-apis.github.com/>
+%article
   %h1 Http y Python
+%article
+  %h3 ¿Qué es HTTP?
+  %ul{:class => 'build'}
+    %li Protocolo de transferencia de hipertexto
+    %li Basado en el modelo <em>cliente-servidor</em>
+    %li Usa el ciclo <em>solicitud-respuesta</em>
+%article 
+  %h3 El cliente
+  %ul{:class => 'build'}
+    %li ¿Quiénes pueden ser clientes?
+    %li Cualquier programa que pueda construir una solicitud y enviarla
+    %li ¿Qué hace un cliente?
+    %li Crea solicitudes, interpreta respuestas, mantiene el estado
 %article{:class => 'small'}
-  %h2 Una rápida introducción a CURL
+  %h3 Una rápida introducción a CURL
   %pre
     $ which curl
     $ man curl
@@ -12,15 +36,125 @@
     $ curl -v httpbin.org/get?hello=world
     $ curl -v --data param1=data1 httpbin.org/post
 %article
-  %h2 ¿Qué es HTTP?
-  :markdown
-    * Basado en el modelo __cliente-servidor__
-    * Usa el ciclo __solicitud-respuesta__
-    * Enteramente basado en archivos de texto con poco formato "especial"
+  %h3 Las solicitudes
+  %pre
+    GET / HTTP/1.1
+    User-Agent: curl/7.19.7 (i486-pc-linux-gnu)
+    Host: google.com
+    Accept: */*
+%article 
+  %h3 Solicitudes:
+  %ul
+    %li Qué se quiere
+    %li Cómo se quiere
 %article
+  %h3 Métodos
   :markdown
-    ##TODO
-    * imagen con el ciclo
-    * solicitudes/respuestas de ejemplo
-    * cliente y servidor: qué hacen; cliente CRUD, servidor MVC
-    * wsgi
+    * HEAD
+    * GET
+    * POST
+    * PUT
+    * DELETE
+    * TRACE, OPTIONS, CONNECT, PATCH
+%article{:class => 'small'}
+  %h3 URLs
+  %tt http://google.com:80/?q=python#results
+  %ul
+    %li <tt>http:</tt> es el protocolo
+    %li <tt>google.com</tt>, el dominio (host)
+    %li <tt>80</tt>, el puerto
+    %li <tt>/</tt> ruta (path)
+    %li <tt>?q=python</tt>, querystring
+    %li <tt>#results</tt>, fragmento (hash), <em>sólo visible por el cliente</em>
+%article
+  %h3 Encabezados
+  %ul
+    %li Contenido: pares de llave-valor (key-value) separados por punto y coma (;)
+    %li Cada encabezado se separa de otro por un salto de línea
+    %li Ejemplos: 'Accept', 'Cookie', 'Accept-Language'
+%article
+  %h3 El servidor
+  %ul
+    %li Suele estar escuchando: un daemon
+    %li Recibe solicitudes, las interpreta, construye respuestas
+    %li Tan simple como un script, tan complicado como un MVC
+%article
+  %h3 Las respuests
+  %pre
+    HTTP/1.0 200 OK
+    Date: Mon, 11 Apr 2011 17:39:00 GMT
+    Server: WSGIServer/0.1 Python/2.6.5
+    Content-Type: text/plain
+    Content-Length: 12
+
+    Hola Mundo!
+%article
+  %h3 Partes de una respuesta
+  %ul
+    %li Línea de estado
+    %li Encabezados
+    %li Cuerpo
+%article
+  %h3 Estados
+  %ul
+    %li 1xx y 2xx: todo salió bien
+    %li 3xx: el recurso está en otra parte
+    %li 4xx: error de cliente
+    %li 5xx: error de servidor
+%article{:class => 'small'}
+  %h2 El servidor más sencillo en python
+  :markdown 
+        def application(environ, response_callback)
+            text = 'Hola Mundo!\n'
+            response_callback(
+                "200 OK",
+                [('Content-Type', 'text/plain'),
+                 ('Content-Length', str(len(text)))]
+                )
+            return [text]
+        from wsgiref.simple_server import make_server
+        daemon = make_server('127.0.0.1', 8000, application)
+        daemon.handle_request()
+%article
+  %h2 ¿Qué es WSGI?
+  %ul
+    %li Una interfaz estándar para servidores en python
+    %li Le deja al programa servidor (nginx, apache, etc) la responsabilidad de proveer constructores de respuestas
+    %li Le deja a la lógica de aplicación usar eso y el entorno; y nada más
+%article
+  %h3 WSGI como abstracción
+  %p
+    %img{:src => 'http://desarrollo-web.github.com/images/wsgi.png', :style=> "margin:-100px;"}
+%article{:class => 'small'}
+  %h2 Experimentos con WSGI
+  :markdown
+        def application(environ,
+                start_response):
+          text = ""
+          for k,v in environ.items():
+              text += "%s: %s\n"%(k,v)
+          start_response(
+                  "200 OK",
+                  [('Content-Type', 'text/plain'),
+                   ('Content-Length', str(len(text)))]
+                  )
+          return [text]
+        from wsgiref.simple_server import make_server
+        daemon = make_server('127.0.0.1', 8000, application)
+        daemon.handle_request()
+%article
+  %h2 Experimentos con WSGI
+  :markdown
+        from cgi import parse_qs
+        def application(environ, response_callback):
+            get = parse_qs(environ['QUERY_STRING'])
+            text = get['with'][0] + '\n'
+            response_callback(
+                "200 OK",
+                [('Content-Type', 'text/plain'),
+                 ('Content-Length', str(len(text)))]
+                )
+            return [text]
+        from wsgiref.simple_server import make_server
+        daemon = make_server('127.0.0.1', 8000, application)
+        daemon.handle_request()
