@@ -1,6 +1,3 @@
----
-title: Http y Python
----
 <!DOCTYPE html>
 
 <!--
@@ -132,6 +129,8 @@ title: Http y Python
     <li>Contenido: pares de llave-valor (key-value) separados por punto y coma (;)</li>
     <li>Cada encabezado se separa de otro por un salto de línea</li>
     <li>Ejemplos: 'Accept', 'Cookie', 'Accept-Language'</li>
+    <pre>Accept-Language: en-US
+    Content-Disposition: attachment; filename=fname.ext</pre>
   </ul>
 </article>
 <article>
@@ -143,7 +142,7 @@ title: Http y Python
   </ul>
 </article>
 <article>
-  <h3>Las respuests</h3>
+  <h3>Las respuestas</h3>
   <pre>HTTP/1.0 200 OK
   Date: Mon, 11 Apr 2011 17:39:00 GMT
   Server: WSGIServer/0.1 Python/2.6.5
@@ -198,8 +197,8 @@ title: Http y Python
   <h2>Experimentos serios con WSGI</h2>
   <ul>
   <li>Manejando forms con GET: <a href='https://github.com/rest-apis/rest-apis.github.com/blob/master/_presentaciones/forms.py'>https://github.com/rest-apis/rest-apis.github.com/blob/master/_presentaciones/forms.py</a></li>
+  <li>Manejando forms con POST: <a href='https://github.com/rest-apis/rest-apis.github.com/blob/master/_presentaciones/forms.py'>https://github.com/rest-apis/rest-apis.github.com/blob/master/_presentaciones/forms.py</a></li>
   
-  <li>Manejando forms con POST: <a href='https://github.com/rest-apis/rest-apis.github.com/blob/master/_presentaciones/forms.py'>https://github.com/rest-apis/rest-apis.github.com/blob/master/_presentaciones/post_forms.py</a></li>
   <li>Construyamos un framework: <a href='https://github.com/rest-apis/wsgi_app/commits/master'>https://github.com/rest-apis/wsgi_app/commits/master</a></li>
   </ul>
 </article>

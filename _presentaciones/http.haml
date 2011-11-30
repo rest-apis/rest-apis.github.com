@@ -72,6 +72,9 @@
     %li Contenido: pares de llave-valor (key-value) separados por punto y coma (;)
     %li Cada encabezado se separa de otro por un salto de línea
     %li Ejemplos: 'Accept', 'Cookie', 'Accept-Language'
+    %pre
+      Accept-Language: en-US
+      Content-Disposition: attachment; filename=fname.ext
 %article
   %h3 El servidor
   %ul
@@ -79,14 +82,14 @@
     %li Recibe solicitudes, las interpreta, construye respuestas
     %li Tan simple como un script, tan complicado como un MVC
 %article
-  %h3 Las respuests
+  %h3 Las respuestas
   %pre
     HTTP/1.0 200 OK
     Date: Mon, 11 Apr 2011 17:39:00 GMT
     Server: WSGIServer/0.1 Python/2.6.5
     Content-Type: text/plain
     Content-Length: 12
-
+    
     Hola Mundo!
 %article
   %h3 Partes de una respuesta
