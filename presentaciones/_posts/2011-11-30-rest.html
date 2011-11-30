@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<!--
+  Google HTML5 slide template
+
+  Authors: Luke Mahé (code)
+           Marcin Wichary (code and design)
+           
+           Dominic Mazzoni (browser compatibility)
+           Charles Chen (ChromeVox support)
+
+  URL: http://code.google.com/p/html5slides/
+-->
+
+<html>
+  <head>
+    <title>Presentation</title>
+
+    <meta charset='utf-8'>
+    <script
+      src='http://rest-apis.github.com/js/slides.js'></script>
+  </head>
+  
+  <style>
+    /* Your individual styles here, or just use inline styles if that’s
+       what you want. */
+    
+    
+  </style>
+
+  <body style='display: none'>
+
+    <section class='slides layout-regular template-default'>
+        
+        <article>
+  <h1>REST sobre HTTP</h1>
+</article>
+<article>
+  <h2>¿Qué es REST?</h2>
+  <p>
+    Representational State Transfer: una forma de <em>construir</em>
+    arquitecturas distribuidas que se se centra en las <em>representaciones de recursos</em>
+  </p>
+</article>
+<article>
+  <h2>Principios</h2>
+  <ul>
+  <li>Los recursos están identificados por URIs</li>
+  
+  <li>Los recursos se manipulan a través de sus representaciones</li>
+  
+  <li>Los mensajes son auto-contenidos y <em>sin estado</em></li>
+  
+  <li>Los recursos pueden tener múltiples representaciones</li>
+  
+  <li><strong>Sustantivos, Verbos, Tipos de contenido</strong></li>
+  </ul>
+</article>
+<article class='small'>
+  <h3>Identificación de recursos</h3>
+  <p>Estamos interactuando con <em>recursos</em>: cada URL debería identificar a uno</p>
+  <p>Igual que en una jerarquía de archivos</p>
+  <div class='build'>
+    <pre>blog.com/index.php?entradas=todas
+    blog.com/index.php?idEntrada=1
+    blog.com/index.php?idEntrada=1&ver=comentarios</pre>
+    <pre>blog.com/entradas
+    blog.com/entradas/1
+    blog.com/entradas/1/comentarios</pre>
+  </div>
+</article>
+<article>
+  <h3>Manipulación de recursos</h3>
+  <ul>
+  <li>Existe la tendencia (en arquitecturas como SOAP) a identificar <em>acciones</em> con URIs</li>
+  
+  <li>Ya hemos visto que las URLs <em>sólo</em> pueden identificar recursos</li>
+  
+  <li>¿Y si queremos <em>manipular</em> un recurso?</li>
+  
+  <li>¡Queremos CRUD! (Create-Read-Update-Destroy)</li>
+  </ul>
+</article>
+<article>
+  <h2>Manipulación de recursos: mal hecha</h2>
+  <pre>GET blog.com/entradas?todas=true
+  GET blog.com/entradas?idEntrada=1
+  GET blog.com/entradas?idEntrada=1&ver=comentarios
+  POST blog.com/entradaNueva
+  texto=loremipsum
+  POST blog.com/actualizarEntrada?idEntrada=1
+  texto=loremIpsum2
+  POST blog.com/borrarEntrada?idEntrada=1</pre>
+</article>
+<article>
+  <h2>Manipulación de recursos: bien hecha</h2>
+  <pre>GET blog.com/entradas
+  GET blog.com/entradas/1
+  GET blog.com/entradas/1/comentarios
+  POST blog.com/entradas
+  texto=loremipsum
+  PUT blog.com/entradas/1
+  texto=loremIpsum2
+  DELETE blog.com/entradas/1</pre>
+</article>
+<article>
+  <h3>HTTP al manipular recursos: solicitudes</h3>
+  <ul>
+  <li><strong>GET</strong>: obtiene un recurso (<strong>leer</strong>)</li>
+  
+  <li><strong>POST</strong>: agrega a un recurso (<strong>crear</strong>)</li>
+  
+  <li><strong>PUT</strong>: transfiere (o sobreescribe) (<strong>actualizar</strong>)</li>
+  
+  <li><strong>DELETE</strong>: elimina un recurso (<strong>borrar</strong>)</li>
+  
+  <li>PUT y DELETE son <strong>idempotentes</strong>: tendrán los mismos efectos siempre</li>
+  
+  <li>GET es un método seguro: no debe cambiar nada en el servidor</li>
+  
+  <li>Usar encabezados para definir cómo se está haciendo la solicitud y espera la respuesta</li>
+  </ul>
+</article>
+<article>
+  <h3>HTTP al manipular recursos: respuestas</h3>
+  <ul>
+  <li>El servidor tiene que comunicarnos sobre la operación con códigos de estado</li>
+  
+  <li>Los encabezados hablan de cómo está representado el recurso</li>
+  </ul>
+</article>
+<article>
+  <h3>Representación de recursos</h3>
+  <ul>
+  <li>Debería poder optarse por distintas representaciones de un recurso</li>
+  
+  <li>Cómo: encabezados</li>
+  
+  <li>Ejemplo: pictour</li>
+  </ul>
+</article>
+<article>
+  <h2>Representación de recursos</h2>
+  <pre>GET blog.com/entrada/1
+  Accept: text/plain</pre>
+  <pre>HTTP/1.1 200 OK
+  Content-Type: text/plain
+  Lorem ipsum dolor sic amet</pre>
+</article>
+<article>
+  <h2>Representación de recursos</h2>
+  <pre>GET blog.com/entrada/1
+  Accept: text/xml</pre>
+  <pre>HTTP/1.1 200 OK
+  Content-Type: application/json
+  {"entrada": {"id": 1, "contenido": "Lorem ipsum dolor sic amet"}}</pre>
+</article>
+<article>
+  <h2>Representación de recursos</h2>
+  <pre>GET blog.com/entrada/1
+  Accept: text/xml</pre>
+  <pre>HTTP/1.1 406 NOT ACCEPTABLE
+  Content-Type: text/xml</pre>
+</article>
+<article>
+  <h2>Estado</h2>
+  <ul>
+  <li>Por definición, el servidor <strong>no debería</strong> recordar qué pasa entre solicitudes</li>
+  
+  <li>Cosas como autenticación e historia son responsabilidad del cliente</li>
+  </ul>
+</article>
+<article>
+  <h2>Ventajas</h2>
+  <ul>
+  <li>Aprovecharse del <strong>cache</strong> de http: el header <code>Expires</code> dice por cuánto tiempo es válida una representación</li>
+  
+  <li>Al no mantener estado, se pueden balancear servidores</li>
+  
+  <li>Simplicidad en implementación de cliente y servidor</li>
+  </ul>
+</article>
+<article>
+  <h3>Ejemplos</h3>
+  <ul>
+  <li>Una simple API creada en <a href='http://notas.herokuapp.com/'>http://notas.herokuapp.com/</a></li>
+  
+  <li>Para hacer estas pruebas, pueden usar <a href='http://hurl.it/'>http://hurl.it/</a></li>
+  
+  <li>Hay un <a href='https://github.com/rest-apis/rest-apis.github.com/blob/master/ejemplos/notes_api.py'>ejemplo de cómo comunicarse una API en python</a> en github</li>
+  </ul>
+</article>
+<article>
+  <h3>Referencias y lectura adicional</h3>
+  <ul>
+  <li><a href='http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm'>http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm</a></li>
+  
+  <li><a href='http://dret.net/lectures/services-fall06/rest'>http://dret.net/lectures/services-fall06/rest</a></li>
+  
+  <li><a href='http://rest.elkstein.org/'>http://rest.elkstein.org/</a></li>
+  
+  <li><a href='http://blog.steveklabnik.com/2011/07/03/nobody-understands-rest-or-http.html'>http://blog.steveklabnik.com/2011/07/03/nobody-understands-rest-or-http.html</a></li>
+  
+  <li><a href='http://timelessrepo.com/haters-gonna-hateoas'>http://timelessrepo.com/haters-gonna-hateoas</a></li>
+  </ul>
+</article>
+
+
+    </section>
+
+  </body>
+</html>
