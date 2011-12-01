@@ -121,6 +121,26 @@
     * Una simple API creada en <http://notas.herokuapp.com/>
     * Para hacer estas pruebas, pueden usar <http://hurl.it/>
     * Hay un [ejemplo de cómo comunicarse una API en python](https://github.com/rest-apis/rest-apis.github.com/blob/master/ejemplos/notes_api.py) en github
+%article{:class => "small"}
+  %h3 Ejercicio
+  %p Dado el host http://notas.herokuapp.com/ y que /notes es el recurso base, probar en hurl.it:
+  %ul
+    %li Listar todas las notas en formato application/json
+    %li Mostrar una nota en formato text/plain
+    %li Agregar una nueva nota (los campos son <tt>title</tt> y <tt>content</tt>)
+    %li Eliminar una nota existente
+    %li ¿Qué pasa al tratar de agregar una nota con título repetido o contenido vacío?
+    %li Cambiar el título de una nota existente
+    %li ¿Qué pasa al tratar de eliminar o actualizar una nota que no existe?
+%article
+  %h3 Ejercicio
+  %p ¿Cómo haría un API para un servicio como thingler.com?
+%article
+  %h3 Ejercicio
+  %p Crear un servicio en python con citas célebres, poder obtener todas las citas, un número limitado o las citas por autor.
+  :markdown
+    El código vivirá aquí <https://github.com/rest-apis/quotes>
+    
 %article
   %h3 Referencias y lectura adicional
   :markdown
